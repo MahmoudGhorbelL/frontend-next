@@ -1,6 +1,11 @@
+import Head from 'next/head';
 import { Inter } from "next/font/google";
-import "./globals.css";
-
+//import "./globals.css";
+import 'bootstrap/dist/css/bootstrap.css';
+import Menu from "@/components/client/menu";
+import './loader';
+import AuthProvider from '@/providers/authProvider';
+import CartsProvider from '@/providers/cartsProvider';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,7 +16,42 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <>
+          {/* Basic */}
+          <meta charSet="utf-8" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          {/* Mobile Metas */}
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          />
+          {/* Site Metas */}
+          <link rel="icon" href="assets/images/favicon.png" type="image/gif" />
+          <meta name="keywords" content="" />
+          <meta name="description" content="" />
+          <meta name="author" content="" />
+          <title>Bostorek</title>
+          {/* bootstrap core css */}
+          <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
+          {/* font awesome style */}
+          <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+          {/* Custom styles for this template */}
+          <link href="assets/css/style.css" rel="stylesheet" />
+          {/* responsive style */}
+          <link href="assets/css/responsive.css" rel="stylesheet" />
+        </>
+
+      </head>
+      <body className={inter.className}>
+        <CartsProvider>
+          <AuthProvider>
+            <Menu />
+            {children}
+          </AuthProvider>
+        </CartsProvider>
+      </body>
+
     </html>
   );
 }
